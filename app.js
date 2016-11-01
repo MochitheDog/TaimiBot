@@ -4,7 +4,7 @@ const Discord = require('discord.js');
 const bot = new Discord.Client();
 
 const token = 'MYTOKEN'; // Don't commit the token to Github!
-const prefix = 't.';
+const prefix = '/';
 const jsonf = require('./responses.json');
 //const wiki = require('wikijs');
 
@@ -21,10 +21,21 @@ bot.on('message', msg => {
     if (msg.content === 'ping') {
         // Ping-pong
         msg.reply("pong");
-    } else if (jsonf.hasOwnProperty(msg.content)) {
-        // Respond to simple commands in json file
-        msg.reply(jsonf[msg.content]);
-    } else if (msg.content.startsWith('/wiki ')) {
+		return;
+    }
+	if (msg.content.startsWith(prefix)) {
+		var str = msg.content.slice(1);
+		if (str === 'wiki') {
+			msg.channel.sendMessage("Please use this format to search: `/wiki <query>`");
+			return;
+		}
+		if (jsonf.hasOwnProperty(str)) {
+			// Respond to simple commands in json file
+			msg.channel.sendMessage(jsonf[str]);
+			return;
+		}
+    }
+	if (msg.content.startsWith(prefix + 'wiki ')) {
         // GW2 Wiki search
         var wiki = require('wikijs');
         var str = msg.content.slice(6); // slice prefix from search terms

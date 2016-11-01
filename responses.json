@@ -1,5 +1,17 @@
 {
-	"ayy" : "lmao",
-	"poo" : "bah",
-	"ping" : "pong"
+	"qtbuilds" : "http://qtfy.enjin.com/builds",
+	"raidbuilds" : "http://qtfy.enjin.com/builds",
+	"metabattle" : "http://metabattle.com/wiki/MetaBattle_Wiki",
+	"metabattlewar" : "http://metabattle.com/wiki/Warrior",
+	"metabattleguard" : "http://metabattle.com/wiki/Guardian",
+	"metabattlerev" : "http://metabattle.com/wiki/Revenant",
+	"metabattleele" : "http://metabattle.com/wiki/Elementalist",
+	"metabattlenecro" : "http://metabattle.com/wiki/Necromancer",
+	"metabattlemesmer" : "http://metabattle.com/wiki/Mesmer",
+	"metabattlemes" : "http://metabattle.com/wiki/Mesmer",
+	"metabattleranger" : "http://metabattle.com/wiki/Ranger",
+	"metabattleengi" : "http://qtfy.enjin.com/builds/Engineer",
+	"wvwmatchups" : "http://mos.millenium.org/na/matchups/",
+	"wvwranks" : "https://leaderboards.guildwars2.com/en/na/wvw"
+	
 }
