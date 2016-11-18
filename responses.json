@@ -10,8 +10,9 @@
 	"metabattlemesmer" : "http://metabattle.com/wiki/Mesmer",
 	"metabattlemes" : "http://metabattle.com/wiki/Mesmer",
 	"metabattleranger" : "http://metabattle.com/wiki/Ranger",
-	"metabattleengi" : "http://qtfy.enjin.com/builds/Engineer",
+	"metabattleengi" : "http://metabattle.com/wiki/Engineer",
+	"metabattlethief" : "http://metabattle.com/wiki/Thief",
 	"wvwmatchups" : "http://mos.millenium.org/na/matchups/",
-	"wvwranks" : "https://leaderboards.guildwars2.com/en/na/wvw"
-	
+	"wvwranks" : "https://leaderboards.guildwars2.com/en/na/wvw",
+	"taimihelp" : "Here's my current list of commands: http://pastebin.com/ms6c04ey"
 }

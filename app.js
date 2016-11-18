@@ -1,11 +1,13 @@
-// Taimi Bot
+﻿// Taimi Bot
 // Example code
 const Discord = require('discord.js');
 const bot = new Discord.Client();
 
-const token = 'MYTOKEN'; // Don't commit the token to Github!
+const token = 'mytoken'; // Don't commit the token to Github!
 const prefix = '/';
 const jsonf = require('./responses.json');
+
+
 //const wiki = require('wikijs');
 
 
@@ -17,11 +19,10 @@ bot.on('message', msg => {
     // Stop early if message was sent by another bot
     if (msg.author.bot) return;
     let limitResults = 5; // For limiting search results
-
-    if (msg.content === 'ping') {
-        // Ping-pong
-        msg.reply("pong");
-		return;
+	
+    if (msg.mentions.users.exists('id', bot.user.id) && (msg.content.search("ping") >= 0)) {
+        msg.reply("pong~");
+        return;
     }
 	if (msg.content.startsWith(prefix)) {
 		var str = msg.content.slice(1);
@@ -80,7 +81,70 @@ bot.on('message', msg => {
         }, function (err) {
                 msg.channel.sendMessage(err);
         });
-    }
+	} else if (msg.content.startsWith('>')) {
+	    // >Green text
+	    if (!(msg.content.includes('{') && msg.content.includes('}'))) {
+	        // Since this will use css code blocks, ignore actual css, which curly brackets indicate
+	        msg.reply( 
+                "```css" + '\n' +
+                msg.content + '\n' +
+                "```");
+	        msg.delete()
+            .catch(console.error);
+	    }
+	} else if (msg.content.startsWith(prefix + 'trans ') || msg.content.startsWith(prefix + 'translate ')) {
+	    // Translation
+	    var firstSpace = msg.content.indexOf(' ');
+	    var noPrefix = msg.content.slice(firstSpace + 1);
+	    // msg.content = /trans (langA)>en translate me plox!
+	    // noPrefix = (langA)>en translate me plox!
+	    var secondSpace = noPrefix.trim().indexOf(' ');
+	    var options
+	    if (secondSpace > 0) {
+	        options = noPrefix.slice(0, secondSpace);
+	    } else {
+	        options = "";
+	    }
+	    var text = noPrefix.slice(secondSpace + 1);
+	    var langA;
+	    var langB;
+	    // options = (langA)>en
+        // some debugging stuff
+	    console.log("options = " + options);
+	    console.log("text = " + text);
+        if (options.length > 0) {
+            var langs = options.split('>');
+            langA = langs[0];
+            langB = langs[1];
+            
+        } else {
+            // requires unicode UTF-8 to display kana properly
+            msg.reply("ERROR: Please use this syntax to translate:" + '\n' +
+                        "```(/trans OR /translate) (OPTIONAL:langA)>langB text-to-translate" + '\n' +
+                        "for example: /trans jp>en こんにちは皆さん！Taimibotです！```");
+            return;
+        }
+        if (langA.length <= 0) {
+            langA = "auto";
+        }
+        console.log("langA = " + langA + " , langB = " + langB);
+        var translate = require('google-translate-api');
+        // why the fuck is there no option to disable autocorrect language ???
+	    translate(text, {from: langA, to: langB}).then(res => {
+	        msg.channel.sendMessage(res.from.language.iso + "> " + res.text);
+	        console.log(res.text);
+	        console.log(res.from.text.autoCorrected);
+	        //=> false
+	        console.log(res.from.text.value);
+	        //=> I [speak] Dutch!
+	        console.log(res.from.text.didYouMean);
+	        //=> true
+	        console.log(res.from.language.didYouMean);
+        }).catch(err => {
+            msg.reply(err);
+        });
+
+	}
 });
 
 function getCommand(cmd) {
