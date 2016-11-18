@@ -14,5 +14,6 @@
 	"metabattlethief" : "http://metabattle.com/wiki/Thief",
 	"wvwmatchups" : "http://mos.millenium.org/na/matchups/",
 	"wvwranks" : "https://leaderboards.guildwars2.com/en/na/wvw",
-	"taimihelp" : "Here's my current list of commands: http://pastebin.com/ms6c04ey"
+	"taimihelp" : "Here's my current list of commands: http://pastebin.com/ms6c04ey",
+	"changelog" : "I now provide >greentext and /translate functions as of 2016-11-17!"
 }

@@ -27,12 +27,12 @@ bot.on('message', msg => {
 	if (msg.content.startsWith(prefix)) {
 		var str = msg.content.slice(1);
 		if (str === 'wiki') {
-			msg.channel.sendMessage("Please use this format to search: `/wiki <query>`");
+			msg.reply("Please use this format to search: `/wiki <query>`");
 			return;
 		}
 		if (jsonf.hasOwnProperty(str)) {
 			// Respond to simple commands in json file
-			msg.channel.sendMessage(jsonf[str]);
+			msg.reply(jsonf[str]);
 			return;
 		}
     }
