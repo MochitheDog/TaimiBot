@@ -13,6 +13,7 @@ const jsonf = require('./responses.json');
 
 bot.on('ready', () => {
     console.log('Taimi Bot is ready!');
+    bot.user.setGame("/taimihelp");
 });
 
 bot.on('message', msg => {
