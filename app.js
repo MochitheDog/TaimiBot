@@ -1,9 +1,8 @@
 ﻿// Taimi Bot
-// Example code
 const Discord = require('discord.js');
 const bot = new Discord.Client();
 
-const token = ''; // Don't commit the token to Github!
+const token = 'mytoken'; // Don't commit the token to Github!
 const prefix = '/';
 const jsonf = require('./responses.json');
 
