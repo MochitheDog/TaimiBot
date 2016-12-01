@@ -3,7 +3,7 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client();
 
-const token = 'mytoken'; // Don't commit the token to Github!
+const token = ''; // Don't commit the token to Github!
 const prefix = '/';
 const jsonf = require('./responses.json');
 
@@ -13,7 +13,7 @@ const jsonf = require('./responses.json');
 
 bot.on('ready', () => {
     console.log('Taimi Bot is ready!');
-    bot.user.setGame("/taimihelp");
+    bot.user.setGame("Use /taimihelp | /changelog");
 });
 
 bot.on('message', msg => {

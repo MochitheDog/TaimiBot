@@ -15,6 +15,5 @@
 	"metabattlethief" : "http://metabattle.com/wiki/Thief",
 	"wvwmatchups" : "http://mos.millenium.org/na/matchups/",
 	"wvwranks" : "https://leaderboards.guildwars2.com/en/na/wvw",
-	"changelog" : "``` 2016-11-17: I now provide >greentext and /translate functions!
-	2016-11-30: Added a dice roll function! /roll <number> ```"
+	"changelog" : "2016-11-30: Added a dice roll function! /roll <number>"
 }
