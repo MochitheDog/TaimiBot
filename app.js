@@ -36,7 +36,7 @@ bot.on('message', msg => {
 			msg.reply(jsonf[str]);
 			return;
 		}
-    }
+	}
 	if (msg.content.startsWith(prefix + 'wiki ')) {
         // GW2 Wiki search
         var wiki = require('wikijs');
@@ -82,18 +82,21 @@ bot.on('message', msg => {
         }, function (err) {
                 msg.channel.sendMessage(err);
         });
-	} else if (msg.content.startsWith('>')) {
+	}
+	else if (msg.content.startsWith('>')) {
 	    // >Green text
 	    if (!(msg.content.includes('{') && msg.content.includes('}'))) {
 	        // Since this will use css code blocks, ignore actual css, which curly brackets indicate
-	        msg.reply( 
+            msg.channel.sendMessage(
+	            msg.author + ": " + '\n' +
                 "```css" + '\n' +
                 msg.content + '\n' +
                 "```");
 	        msg.delete()
             .catch(console.error);
 	    }
-	} else if (msg.content.startsWith(prefix + 'trans ') || msg.content.startsWith(prefix + 'translate ')) {
+	}
+	else if (msg.content.startsWith(prefix + 'trans ') || msg.content.startsWith(prefix + 'translate ')) {
 	    // Translation
 	    var firstSpace = msg.content.indexOf(' ');
 	    var noPrefix = msg.content.slice(firstSpace + 1);
@@ -111,8 +114,8 @@ bot.on('message', msg => {
 	    var langB;
 	    // options = (langA)>en
         // some debugging stuff
-	    console.log("options = " + options);
-	    console.log("text = " + text);
+	    //console.log("options = " + options);
+	    //console.log("text = " + text);
         if (options.length > 0) {
             var langs = options.split('>');
             langA = langs[0];
@@ -122,29 +125,50 @@ bot.on('message', msg => {
             // requires unicode UTF-8 to display kana properly
             msg.reply("ERROR: Please use this syntax to translate:" + '\n' +
                         "```(/trans OR /translate) (OPTIONAL:langA)>langB text-to-translate" + '\n' +
-                        "for example: /trans jp>en こんにちは皆さん！Taimibotです！```");
+                        "for example: /trans ja>en こんにちは皆さん！Taimibotです！```");
             return;
         }
         if (langA.length <= 0) {
             langA = "auto";
         }
-        console.log("langA = " + langA + " , langB = " + langB);
+        //console.log("langA = " + langA + " , langB = " + langB);
         var translate = require('google-translate-api');
-        // why the fuck is there no option to disable autocorrect language ???
+        // why is there no option to disable autocorrect language ???
 	    translate(text, {from: langA, to: langB}).then(res => {
 	        msg.channel.sendMessage(res.from.language.iso + "> " + res.text);
-	        console.log(res.text);
-	        console.log(res.from.text.autoCorrected);
+	        //console.log(res.text);
+	        //console.log(res.from.text.autoCorrected);
 	        //=> false
-	        console.log(res.from.text.value);
+	        //console.log(res.from.text.value);
 	        //=> I [speak] Dutch!
-	        console.log(res.from.text.didYouMean);
+	        //console.log(res.from.text.didYouMean);
 	        //=> true
-	        console.log(res.from.language.didYouMean);
+	        //console.log(res.from.language.didYouMean);
         }).catch(err => {
             msg.reply(err);
         });
-
+	}
+	else if (msg.content.startsWith(prefix + 'roll ')) {
+	    // Dice roll
+	    const max = 100;
+	    var str = msg.content.slice(6);
+	    var error = "Roll Error: Please specify a [2-" + max + "] sided die to roll.";
+	    if (str.length > 0) {
+	        var dnum = parseInt(str, 10);
+	        if (!isNaN(dnum) && (dnum > 1 && dnum <= max)) {
+	            var roll = Math.floor((Math.random() * dnum) + 1);
+	            //var user = msg.author.mention();
+	            var result = msg.author + " rolled " + roll + " on a " + dnum + " sided die.";
+	            console.log(result);
+	            msg.channel.sendMessage(result);
+	        } else {
+	            console.log(error);
+	            msg.channel.sendMessage(error);
+	        }
+	    } else {
+	        console.log(error);
+	        msg.channel.sendMessage(error);
+	    }
 	}
 });
 
