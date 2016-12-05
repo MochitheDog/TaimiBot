@@ -9,3 +9,4 @@ Features
 - /roll <num> --> roll a <num> sided die for a random number, up to a maximum of 100-sided die.
 - /translate lang1>lang2 <string> --> Google translate <string> from language1 to language2.
 - Basic responses to phrases (see responses.json). Can return links to [qT] raid builds, metabattle, WvW leaderboards and match-up sites, etc.
+- Replaces messages that start with > with the message in ``` >greentext ```
